@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
-
+import pdf.items
+from scrapy.loader import ItemLoader
 class BaiduSpider(scrapy.Spider):
     name = 'baidu'
     allowed_domains = ['wenku.baidu.com']
@@ -13,5 +13,14 @@ class BaiduSpider(scrapy.Spider):
             yield scrapy.Request(url, callback = self.parse)
 		
     def parse(self, response):
+        item = pdf.items.PdfItem()
+
         link = response.xpath('//dt[contains(@class, "logFirstClickTime")]//a/@href').extract()
-        print(link)
+        title = response.xpath('//dt[contains(@class, "logFirstClickTime")]//a/@title').extract()
+        for i in range(0, len(link)):
+            l = ItemLoader(item=pdf.items.PdfItem(), response = response)
+            l.add_value('link', link[i])
+            l.add_value('title', title[i])
+            yield l.load_item()
+            #print('Link: ' + link[i] + ', ' + 'Title: ' + title[i])
+            #print(link)

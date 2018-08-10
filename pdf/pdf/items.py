@@ -11,4 +11,7 @@ import scrapy
 class PdfItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+	collection = 'baidu'
+	link = scrapy.Field()
+	title = scrapy.Field()
+	
