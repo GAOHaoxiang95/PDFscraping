@@ -10,9 +10,14 @@ class BaiduSpider(scrapy.Spider):
     def start_requests(self):
         for i in range(0, 500, 10):
             url = self.base_urls + str(i)
-            yield scrapy.Request(url, callback = self.parse)
+            yield scrapy.Request(url)
 		
     def parse(self, response):
+        """
+        @url https://wenku.baidu.com/search?word=imperial+college&org=0&fd=0&lm=0&od=0&pn=20
+        @returns items 1
+		@scrapes link title
+        """		
         item = pdf.items.PdfItem()
 
         link = response.xpath('//dt[contains(@class, "logFirstClickTime")]//a/@href').extract()
