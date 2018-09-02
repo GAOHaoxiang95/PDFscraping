@@ -16,7 +16,7 @@ class BaiduSpider(scrapy.Spider):
         """
         @url https://wenku.baidu.com/search?word=imperial+college&org=0&fd=0&lm=0&od=0&pn=20
         @returns items 1
-		@scrapes link title
+        @scrapes link title
         """		
         item = pdf.items.PdfItem()
 
